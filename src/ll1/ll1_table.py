@@ -83,17 +83,13 @@ def print_ll1_table(grammar: Grammar) -> None:
         print(f"\n  Conflictos:")
         for c in conflicts: print(str(c))
 
-
 def report_ll1(grammar: Grammar) -> str:
     _, conflicts = build_ll1_table(grammar)
-    lines = ["Analisis LL(1):"]
     if not conflicts:
-        lines.append("  La gramatica ES LL(1): no hay conflictos.")
-        lines.append("  Parser predictivo O(n) sin backtracking puede usarse.")
-    else:
-        lines.append(f"  La gramatica NO es LL(1): {len(conflicts)} conflicto(s).")
-        for c in conflicts: lines.append(str(c))
-        lines.append("  Aplicar: eliminar recursividad izquierda + factorizacion.")
+        return "LL(1): la gramatica ES LL(1), sin conflictos."
+    lines = [f"LL(1): la gramatica NO es LL(1) — {len(conflicts)} conflicto(s):"]
+    for c in conflicts:
+        lines.append(str(c))
     return "\n".join(lines)
 
 
